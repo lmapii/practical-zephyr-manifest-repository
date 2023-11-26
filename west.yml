@@ -1,0 +1,30 @@
+manifest:
+  # lowest version of the manifest file schema that can parse this file’s data
+  version: 0.8
+
+  # `self` defines whatever is only relevant for this manifest file
+  # e.g., if we'd like to move the entire repository into a subfolder, we could do this:
+  self:
+    path: app
+  # in fact, if we'd try to initialize the west workspace using the repository as remote,
+  # then the `app` folder would have the repository's name. You can override this with the
+  # given path option.
+
+  projects:
+    # the project name is used as directory name, but considers the given `path-prefix`
+    - name: zephyr
+      # instead of a tag, `revision` also supports hashes and branches. e.g., `--freeze` will
+      # replace all revisions with their aactual commit hashes since tags can always be modified.
+      revision: v3.4.0
+      url: https://github.com/zephyrproject-rtos/zephyr
+      # add Zephyr-specific West extensions
+      west-commands: scripts/west-commands.yml
+      import:
+        path-prefix: deps
+        # defaults to west.yml, but added for good measure.
+        file: west.yml
+        name-allowlist:
+          - cmsis
+          - hal_nordic
+          # - hal_stm32
+
