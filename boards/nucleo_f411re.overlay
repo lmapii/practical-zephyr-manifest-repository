@@ -1,0 +1,5 @@
+/ {
+    chosen {
+        app-led = &green_led_2;
+    };
+};

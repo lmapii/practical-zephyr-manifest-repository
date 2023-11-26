@@ -1,0 +1,17 @@
+manifest:
+  version: 0.8
+
+  projects:
+    - name: sdk-nrf
+      # this is the sdk-nrf version, not the Zephyr version
+      revision: v2.4.2
+      url: https://github.com/nrfconnect/sdk-nrf
+      west-commands: scripts/west-commands.yml
+      import:
+        path-prefix: deps
+        file: west.yml
+        name-allowlist:
+          - nrf
+          - zephyr
+          - cmsis
+          - hal_nordic

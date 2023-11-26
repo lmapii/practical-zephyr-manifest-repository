@@ -26,5 +26,9 @@ manifest:
         name-allowlist:
           - cmsis
           - hal_nordic
-          # - hal_stm32
+          - hal_stm32
 
+    # - name: dummy
+    #   revision: main
+    #   url: git@github.com:lmapii/practical-zephyr-t2-dummy.git
+    #   path: shared/dummy
