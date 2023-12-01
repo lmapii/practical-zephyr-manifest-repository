@@ -33,4 +33,4 @@ jobs:
       - name: Build for STM32 Nucleo-64
         working-directory: app
         run: |
-          west build --board nucleo_f411re app --pristine
+          west build --board nucleo_f411re --pristine

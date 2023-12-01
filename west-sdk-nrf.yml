@@ -1,6 +1,9 @@
 manifest:
   version: 0.8
 
+  self:
+    path: app
+
   projects:
     - name: sdk-nrf
       # this is the sdk-nrf version, not the Zephyr version
