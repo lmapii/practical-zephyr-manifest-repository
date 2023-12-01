@@ -1,3 +1,4 @@
+[![Build status](https://github.com/lmapii/practical-zephyr-manifest-repository/workflows/ci/badge.svg)](https://github.com/lmapii/practical-zephyr-manifest-repository/actions)
 
 # Manifest repository for a T2 star topology West workspace application
 
