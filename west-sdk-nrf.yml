@@ -1,8 +1,13 @@
 manifest:
   version: 0.8
 
+  self:
+    path: app
+
   projects:
-    - name: sdk-nrf
+    # the name of the sdk-nrf MUST be `nrf` since nordic has some relative paths set up
+    # using `${ZEPHYR_BASE}/../nrf`
+    - name: nrf
       # this is the sdk-nrf version, not the Zephyr version
       revision: v2.4.2
       url: https://github.com/nrfconnect/sdk-nrf
@@ -11,7 +16,12 @@ manifest:
         path-prefix: deps
         file: west.yml
         name-allowlist:
-          - nrf
-          - zephyr
+          # notice that the following allowlists are really required, e.g., trying to build
+          # without segger and/or nrfxlib won't work by default (prob. with some Kconfig changes).
+          # only nrf_hw_models is typically not required.
           - cmsis
           - hal_nordic
+          - nrfxlib
+          - nrf_hw_models
+          - segger
+          - zephyr

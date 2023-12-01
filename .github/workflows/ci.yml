@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  pull_request:
+  schedule:
+    - cron: '0 1 * * 0'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    container: ghcr.io/zephyrproject-rtos/ci:v0.26.2
+    env:
+      CMAKE_PREFIX_PATH: /opt/toolchains
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          # checkout location of this repository. this is a west workspace and thus
+          # .west will be located in `app/../.west`.
+          path: app
+
+      - name: Initialize
+        working-directory: app
+        run: |
+          west init --local .
+          west update -o=--depth=1 -n
+
+      - name: Build for nRF52840 development kit
+        working-directory: app
+        run: |
+          west build --board nrf52840dk_nrf52840 --pristine
+
+      - name: Build for STM32 Nucleo-64
+        working-directory: app
+        run: |
+          west build --board nucleo_f411re --pristine
