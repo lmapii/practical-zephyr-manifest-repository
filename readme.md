@@ -19,11 +19,11 @@ workspace $ west build app --pristine --board nrf52840dk_nrf52840
 workspace $ west build app --pristine --board nucleo_f411re
 ```
 
-The configured [GitHub action](app/.github/workflows/ci.yml) also periodically builds the applications using [Zephyr's official docker image](https://github.com/zephyrproject-rtos/docker-image).
+The configured [GitHub action](.github/workflows/ci.yml) also periodically builds the applications using [Zephyr's official docker image](https://github.com/zephyrproject-rtos/docker-image).
 
 ## nRF specific initialization
 
-Instead of using "vanilla Zephyr", this repository also contains a dedicated [manifest file for the nRF Connect SDK](app/west-sdk-nrf.yml):
+Instead of using "vanilla Zephyr", this repository also contains a dedicated [manifest file for the nRF Connect SDK](west-sdk-nrf.yml):
 
 ```bash
 $ mkdir workspace
