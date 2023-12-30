@@ -51,7 +51,7 @@ jobs:
       - name: Initialize
         working-directory: app
         run: |
-          west init --local --mf .
+          west init --local --mf west-sdk-nrf.yml .
           west update -o=--depth=1 -n
 
       - name: Build for nRF52840 development kit
