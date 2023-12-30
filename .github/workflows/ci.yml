@@ -6,7 +6,8 @@ on:
     - cron: '0 1 * * 0'
 
 jobs:
-  build:
+  build-zephyr:
+    # "vanilla" zephyr build
     runs-on: ubuntu-22.04
     container: ghcr.io/zephyrproject-rtos/ci:v0.26.2
     env:
@@ -34,3 +35,26 @@ jobs:
         working-directory: app
         run: |
           west build --board nucleo_f411re --pristine
+
+  build-sdk-nrf:
+    # build using sdk-nrf, which includes zephyr as project.
+    runs-on: ubuntu-22.04
+    container: ghcr.io/zephyrproject-rtos/ci:v0.26.2
+    env:
+      CMAKE_PREFIX_PATH: /opt/toolchains
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: app
+
+      - name: Initialize
+        working-directory: app
+        run: |
+          west init --local --mf .
+          west update -o=--depth=1 -n
+
+      - name: Build for nRF52840 development kit
+        working-directory: app
+        run: |
+          west build --board nrf52840dk_nrf52840 --pristine
