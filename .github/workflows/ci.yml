@@ -6,6 +6,11 @@ on:
     - cron: '0 1 * * 0'
 
 jobs:
+
+  #
+  # build job for vanilla zephyr
+  #
+
   build-zephyr:
     # "vanilla" zephyr build
     runs-on: ubuntu-22.04
@@ -14,16 +19,28 @@ jobs:
       CMAKE_PREFIX_PATH: /opt/toolchains
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # checkout location of this repository. this is a west workspace and thus
           # .west will be located in `app/../.west`.
           path: app
 
-      - name: Initialize
+      - name: Initialize workspace
         working-directory: app
         run: |
           west init --local .
+
+      # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+      - name: Cache dependencies
+        id: cache-vanilla-zephyr
+        uses: actions/cache@v4
+        with:
+          path: deps
+          key: cache-vanilla-zephyr-${{ hashFiles('app/west.yml') }}
+
+      - name: Update workspace
+        working-directory: app
+        run: |
           west update -o=--depth=1 -n
 
       - name: Build for nRF52840 development kit
@@ -36,6 +53,10 @@ jobs:
         run: |
           west build --board nucleo_f411re --pristine
 
+  #
+  # build job using an sdk-nrf west configuration
+  #
+
   build-sdk-nrf:
     # build using sdk-nrf, which includes zephyr as project.
     runs-on: ubuntu-22.04
@@ -44,14 +65,25 @@ jobs:
       CMAKE_PREFIX_PATH: /opt/toolchains
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: app
 
-      - name: Initialize
+      - name: Initialize workspace
         working-directory: app
         run: |
           west init --local --mf west-sdk-nrf.yml .
+
+      - name: Cache dependencies
+        id: cache-sdk-nrf
+        uses: actions/cache@v4
+        with:
+          path: deps
+          key: cache-sdk-nrf-${{ hashFiles('app/west-sdk-nrf.yml') }}
+
+      - name: Update workspace
+        working-directory: app
+        run: |
           west update -o=--depth=1 -n
 
       - name: Build for nRF52840 development kit
