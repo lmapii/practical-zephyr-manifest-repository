@@ -6,6 +6,7 @@ on:
     - cron: '0 1 * * 0'
 
 jobs:
+
   build-zephyr:
     # "vanilla" zephyr build
     runs-on: ubuntu-22.04
@@ -24,6 +25,18 @@ jobs:
         working-directory: app
         run: |
           west init --local .
+
+      # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+      - name: Cache dependencies
+        id: cache-vanilla-zephyr
+        uses: actions/cache@v3
+        with:
+          path: deps
+          key: cache-vanilla-zephyr-${{ hashFiles('app/west.yml') }}
+
+      - name: Update dependencies
+        working-directory: app
+        run: |
           west update -o=--depth=1 -n
 
       - name: Build for nRF52840 development kit
@@ -52,6 +65,17 @@ jobs:
         working-directory: app
         run: |
           west init --local --mf west-sdk-nrf.yml .
+
+      - name: Cache dependencies
+        id: cache-sdk-nrf
+        uses: actions/cache@v3
+        with:
+          path: deps
+          key: cache-sdk-nrf-${{ hashFiles('app/west-sdk-nrf.yml') }}
+
+      - name: Update dependencies
+        working-directory: app
+        run: |
           west update -o=--depth=1 -n
 
       - name: Build for nRF52840 development kit
