@@ -11,10 +11,8 @@ manifest:
       # this is the sdk-nrf version, not the Zephyr version
       revision: v2.4.2
       url: https://github.com/nrfconnect/sdk-nrf
-      west-commands: scripts/west-commands.yml
       import:
         path-prefix: deps
-        file: west.yml
         name-allowlist:
           # notice that the following allowlists are really required, e.g., trying to build
           # without segger and/or nrfxlib won't work by default (prob. with some Kconfig changes).

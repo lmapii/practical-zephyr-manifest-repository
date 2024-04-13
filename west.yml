@@ -17,17 +17,20 @@ manifest:
       # replace all revisions with their aactual commit hashes since tags can always be modified.
       revision: v3.4.0
       url: https://github.com/zephyrproject-rtos/zephyr
-      # add Zephyr-specific West extensions
-      west-commands: scripts/west-commands.yml
+      # explicitly adding Zephyr-specific West extensions is only needed in case no `import`s are
+      # used - which is almost never the case for Zephyr applications. with `import` in place,
+      # the `west.yml` in Zephyr's repository takes care of adding the required West extensions.
+      # west-commands: scripts/west-commands.yml
       import:
         path-prefix: deps
-        # defaults to west.yml, but added for good measure.
+        # defaults to west.yml, but added for good measure/demonstration purposes.
         file: west.yml
         name-allowlist:
           - cmsis
           - hal_nordic
           - hal_stm32
 
+    # demo project for shared code.
     # - name: dummy
     #   revision: main
     #   url: git@github.com:lmapii/practical-zephyr-t2-dummy.git
