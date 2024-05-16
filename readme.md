@@ -2,7 +2,7 @@
 
 # Manifest repository for a T2 star topology West workspace application
 
-This is the example repository for the blog post on West workspaces of the "Practical Zephyr" blog series. It's a _manifest repository_ that also contains the application's sources and thus creates a workspace with a ["T2 star topology"](https://docs.zephyrproject.org/latest/develop/west/workspaces.html#topologies-supported).
+This is the example repository for [the blog post on West workspaces](https://interrupt.memfault.com/blog/practical_zephyr_west) of the "Practical Zephyr" blog series. It's a _manifest repository_ that also contains the application's sources and thus creates a workspace with a ["T2 star topology"](https://docs.zephyrproject.org/latest/develop/west/workspaces.html#topologies-supported).
 
 Refer to Zephyr's own [example workspace application](https://github.com/zephyrproject-rtos/example-application) for a more elaborate example.
 
