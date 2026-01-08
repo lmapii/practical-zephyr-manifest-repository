@@ -1,5 +1,5 @@
 manifest:
-  version: 0.8
+  version: 1.2
 
   self:
     path: app
@@ -9,7 +9,7 @@ manifest:
     # using `${ZEPHYR_BASE}/../nrf`
     - name: nrf
       # this is the sdk-nrf version, not the Zephyr version
-      revision: v2.4.2
+      revision: v3.2.1
       url: https://github.com/nrfconnect/sdk-nrf
       import:
         path-prefix: deps
@@ -18,6 +18,7 @@ manifest:
           # without segger and/or nrfxlib won't work by default (prob. with some Kconfig changes).
           # only nrf_hw_models is typically not required.
           - cmsis
+          - cmsis_6
           - hal_nordic
           - nrfxlib
           - nrf_hw_models

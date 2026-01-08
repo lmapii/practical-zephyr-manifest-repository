@@ -1,6 +1,6 @@
 manifest:
   # lowest version of the manifest file schema that can parse this file’s data
-  version: 0.8
+  version: 1.2
 
   # `self` defines whatever is only relevant for this manifest file
   # e.g., if we'd like to move the entire repository into a subfolder, we could do this:
@@ -15,7 +15,7 @@ manifest:
     - name: zephyr
       # instead of a tag, `revision` also supports hashes and branches. e.g., `--freeze` will
       # replace all revisions with their aactual commit hashes since tags can always be modified.
-      revision: v3.4.0
+      revision: v4.3.0
       url: https://github.com/zephyrproject-rtos/zephyr
       # explicitly adding Zephyr-specific West extensions is only needed in case no `import`s are
       # used - which is almost never the case for Zephyr applications. with `import` in place,
@@ -27,8 +27,9 @@ manifest:
         file: west.yml
         name-allowlist:
           - cmsis
-          - hal_nordic
+          - cmsis_6
           - hal_stm32
+          - hal_nordic
 
     # demo project for shared code.
     # - name: dummy

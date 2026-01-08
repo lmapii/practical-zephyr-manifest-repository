@@ -14,8 +14,8 @@ The following commands show how to build this application, assuming that the [Ze
 $ mkdir workspace
 $ cd workspace
 workspace $ west init -m git@github.com:lmapii/practical-zephyr-manifest-repository.git
-workspace $ west update -o=--depth=1 -n
-workspace $ west build app --pristine --board nrf52840dk_nrf52840
+workspace $ west update --narrow -o=--depth=1 -n
+workspace $ west build app --pristine --board nrf52840dk/nrf52840
 workspace $ west build app --pristine --board nucleo_f411re
 ```
 
@@ -29,8 +29,8 @@ Instead of using "vanilla Zephyr", this repository also contains a dedicated [ma
 $ mkdir workspace
 $ cd workspace
 workspace $ west init -m git@github.com:lmapii/practical-zephyr-manifest-repository.git --mf west-sdk-nrf.yml
-workspace $ west update -o=--depth=1 -n
-workspace $ west build app --pristine --board nrf52840dk_nrf52840
+workspace $ west update --narrow -o=--depth=1 -n
+workspace $ west build app --pristine --board nrf52840dk/nrf52840
 ```
 
 Nordic also has their own [example application](https://github.com/nrfconnect/ncs-example-application).
