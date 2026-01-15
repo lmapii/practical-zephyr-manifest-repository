@@ -17,7 +17,8 @@ jobs:
   build-zephyr:
     # "vanilla" zephyr build
     runs-on: ubuntu-22.04
-    container: ghcr.io/zephyrproject-rtos/ci:v0.26.2
+    # the image size of ci:v0.28.7 exceeds the limits used by GitHub actions
+    container: ghcr.io/zephyrproject-rtos/ci-base:v0.28.7
     env:
       CMAKE_PREFIX_PATH: /opt/toolchains
     steps:
@@ -46,10 +47,15 @@ jobs:
         run: |
           west update -o=--depth=1 -n
 
+      - name: Install Zephyr SDK as toolchain
+        working-directory: deps/zephyr
+        run: |
+          west sdk install --toolchains arm-zephyr-eabi --no-hosttools
+
       - name: Build for nRF52840 development kit
         working-directory: app
         run: |
-          west build --board nrf52840dk_nrf52840 --pristine
+          west build --board nrf52840dk/nrf52840 --pristine
 
       - name: Build for STM32 Nucleo-64
         working-directory: app
@@ -63,7 +69,7 @@ jobs:
   build-sdk-nrf:
     # build using sdk-nrf, which includes zephyr as project.
     runs-on: ubuntu-22.04
-    container: ghcr.io/zephyrproject-rtos/ci:v0.26.2
+    container: ghcr.io/zephyrproject-rtos/ci-base:v0.28.7
     env:
       CMAKE_PREFIX_PATH: /opt/toolchains
     steps:
@@ -89,7 +95,12 @@ jobs:
         run: |
           west update -o=--depth=1 -n
 
+      - name: Install Zephyr SDK as toolchain
+        working-directory: deps/zephyr
+        run: |
+          west sdk install --toolchains arm-zephyr-eabi --no-hosttools
+
       - name: Build for nRF52840 development kit
         working-directory: app
         run: |
-          west build --board nrf52840dk_nrf52840 --pristine
+          west build --board nrf52840dk/nrf52840 --pristine

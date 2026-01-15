@@ -41,7 +41,7 @@ static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
 #define SLEEP_TIME_MS 1000U
 
-void main(void)
+int main(void)
 {
     int err   = 0;
     bool tick = true;
@@ -70,7 +70,7 @@ void main(void)
     if (!gpio_is_ready_dt(&led))
     {
         printk("Error: LED pin is not available.\n");
-        return;
+        return -EIO;
     }
 
     // TODO: MEMFAULT_ASSERT?
@@ -78,7 +78,7 @@ void main(void)
     if (err != 0)
     {
         printk("Error %d: failed to configure LED pin.\n", err);
-        return;
+        return -EIO;
     }
 
     while (1)

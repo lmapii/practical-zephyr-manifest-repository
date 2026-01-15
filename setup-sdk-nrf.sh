@@ -1,7 +1,8 @@
 #!/bin/sh
 
 ncs_install_dir="${ncs_install_dir:-/opt/nordic/ncs}"
-ncs_bin_version="${ncs_bin_version:-4ef6631da0}"
+ncs_sdk_version="${ncs_sdk_version:-v3.2.1}"
+ncs_bin_version="${ncs_bin_version:-322ac893fe}"
 
 paths=(
     $ncs_install_dir/toolchains/$ncs_bin_version/bin
@@ -14,6 +15,9 @@ paths=(
 for entry in ${paths[@]}; do
     export PATH=$PATH:$entry
 done
+
+# use the nrfutil installation from the toolchain installation
+export NRFUTIL_HOME=$ncs_install_dir/toolchains/$ncs_bin_version/nrfutil/home
 
 # only export the paths to the SDK, no longer export the path to the zephyr installation.
 export ZEPHYR_TOOLCHAIN_VARIANT=zephyr

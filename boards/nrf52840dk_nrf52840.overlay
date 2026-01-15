@@ -17,7 +17,6 @@
 &temp {status = "disabled"; };
 &radio {status = "disabled"; };
 &uart1 {status = "disabled"; };
-&gpiote {status = "disabled"; };
 
 // Overwrite the UART pin control to use different pins.
 &uart0_default {
